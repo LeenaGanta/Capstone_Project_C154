@@ -8,5 +8,6 @@ import com.beans.Transfer;
 
 @Repository
 public interface TransferDao extends JpaRepository<Transfer, Long> {
-
+@Query("from Transfer where fromAccNo:aacno")
+	TransferList getTransferByAccountNo(@Param("accno") long accNo);
 }
