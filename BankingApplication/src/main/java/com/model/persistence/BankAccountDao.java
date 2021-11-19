@@ -10,8 +10,8 @@ import com.beans.User;
 
 @Repository
 public interface BankAccountDao extends JpaRepository<BankAccount,Integer> {
-
+	
 	@Query("From BankAccount where balance=:balance")
-	BankAccount getAccountBalance(@Param("accNo") User accNo);
+	Double getAccountBalance(@Param("accNo") long accNo);
 
 }

@@ -23,7 +23,11 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	BankAccountDao bankAccountDao;
 
+	@Autowired
 	TransactionDao transactionDao;
+	
+	@Autowired
+	BalanceService balanceService;
 
 	@Override
 	public Transaction preformTransaction(long accNo, double amount, String type) throws AccountNotFoundException,LowBalanceException
@@ -40,18 +44,18 @@ public class TransactionServiceImpl implements TransactionService {
 		transaction.setAccNo(user);
 		transaction.setDate(now);
 		if (type.equalsIgnoreCase("withdraw")) {
-			double balance = bankAccountDao.getbalance(accNo);
+			double balance =balanceService.getBalance(accNo);
 			if (balance < amount) {
 				throw new LowBalanceException("Insufficient balance please add Rs." + (amount - balance)
 						+ " amount in your account to proceed");
 			} else {
-				bankAccountDao.withdrawBalance(accNo, amount);
+				balanceService.withdrawBalance(accNo, amount);
 				transaction.setAmount(amount);
 				transaction.setTypeOfTransaction("withdraw");
 
 			}
 		} else {
-			bankAccountDao.depositBalance(accNo, amount);
+			balanceService.depositBalance(accNo, amount);
 			transaction.setAmount(amount);
 			transaction.setTypeOfTransaction("deposit");
 

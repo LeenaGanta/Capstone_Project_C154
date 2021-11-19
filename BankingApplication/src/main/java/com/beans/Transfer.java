@@ -22,6 +22,7 @@ import lombok.Setter;
 @Entity
 public class Transfer {
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long transferId;
@@ -31,5 +32,14 @@ public class Transfer {
 	private User toAccNo;
 	private double amount;
 	private LocalDateTime date;
+	public Transfer(User fromAccNo, User toAccNo, double amount, LocalDateTime date) {
+		super();
+		this.fromAccNo = fromAccNo;
+		this.toAccNo = toAccNo;
+		this.amount = amount;
+		this.date = date;
+	}
+	
+	
  
 }

@@ -14,5 +14,4 @@ public interface TransactionDao extends JpaRepository<Transaction, Long>{
 
 	@Query("select transaction from Transaction transaction where txnId=:id")
 	List<Transaction> getTransactionsById(@Param("id")long accNO);
-
 }

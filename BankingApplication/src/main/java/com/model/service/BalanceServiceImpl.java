@@ -1,12 +1,9 @@
 package com.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import com.beans.BankAccount;
-import com.beans.Transfer;
-import com.beans.User;
+
 import com.exceptions.AccountNotFoundException;
 import com.exceptions.LowBalanceException;
 import com.model.persistence.BankAccountDao;
@@ -21,32 +18,30 @@ public class BalanceServiceImpl implements BalanceService{
 	private UserDao userDao;
 	
 	@Override
-	public BankAccount depositBalance(User accNo,Transfer amount) {
+	public Double depositBalance(Long accNo,double amount) {
 
 		boolean exist= userDao.findById(accNo).isPresent();
-		BankAccount balance=bankAccountDao.getAccountBalance(accNo);
+		double balance=bankAccountDao.getAccountBalance(accNo);
 		
 		if(exist) {
 			throw new AccountNotFoundException("Wrong Account No. "+accNo);
 		}
 		else {
 			
-				balance=balance+amount;
-				
-			
+				balance+=amount;
 		}
 		
 		return balance;
 	}
 
 	@Override
-	public BankAccount withdrawBalance(User accNo,Transfer amount) {
-		BankAccount balance=bankAccountDao.getAccountBalance(accNo);
+	public Double withdrawBalance(Long accNo,double amount) {
+		Double balance=bankAccountDao.getAccountBalance(accNo);
 			if(balance<amount) {
 				throw new LowBalanceException("Insufficient balance please add Rs."+(amount-balance)+" amount in your account to proceed");
 			}
 			else {
-				balance=balanc2e-amount;
+				balance=balance-amount;
 				
 			}
 		return balance;
@@ -54,7 +49,7 @@ public class BalanceServiceImpl implements BalanceService{
 	}
 
 	@Override
-	public BankAccount getBalance(User accNo) {
+	public Double getBalance(Long accNo) {
 		return bankAccountDao.getAccountBalance(accNo);
 	}
 	

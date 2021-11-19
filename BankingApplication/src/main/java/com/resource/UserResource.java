@@ -1,6 +1,8 @@
 package com.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.beans.User;
+import com.exceptions.AccountNotFoundException;
 import com.model.service.UserService;
 
 @RestController
@@ -27,23 +30,36 @@ public class UserResource {
 	
 	//Working
 	@GetMapping(path="/users/{accNo}/{password}")
-	public User validateUser(@PathVariable("accNo") long accNo,@PathVariable("password") String password)
+	public ResponseEntity<User> validateUser(@PathVariable("accNo") long accNo,@PathVariable("password") String password)
 	{
-		return userService.validateUser(accNo, password);
+		User user=userService.validateUser(accNo, password);
+		if(user!=null)
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+		else
+			throw new AccountNotFoundException("Please enter correct credentials");
 	}
 	
 	//Working
 	@PutMapping(path="/users/user/{user}")
-	public User updateUser(@RequestBody User user)
+	public ResponseEntity<User> updateUser(@RequestBody User user)
 	{
-		return userService.updateUser(user);
+		User user1=userService.updateUser(user);
+		if(user1!=null)
+		{ return ResponseEntity.status(HttpStatus.OK).body(user);}
+		else
+			throw new AccountNotFoundException("Please enter valid details");
 	}
 	
 	//Working
 	@GetMapping(path="/users/{accNo}")
-	public User getAllDetails(@PathVariable("accNo") long accNo)
+	public ResponseEntity<User> getAllDetails(@PathVariable("accNo") long accNo)
 	{
-		return userService.getAllDetails(accNo);
+		User user=userService.getAllDetails(accNo);
+		if(user!=null)
+			 return ResponseEntity.status(HttpStatus.OK).body(user);
+		else
+			throw new AccountNotFoundException("No particulars Found");
+		
 	}
 
 }

@@ -21,17 +21,17 @@ public class BalanceResource {
 	
 	//Working
 	@GetMapping(path="/users/{accNo}/{amount}")
-	public BankAccount depositBalance(@RequestBody User accNo, @RequestBody Transfer amount) {
+	public Double depositBalance(@RequestBody Long accNo, @RequestBody double amount) {
 		return balanceService.depositBalance(accNo, amount);
 	}
 	
 	@GetMapping(path="/users/{accNo}/{amount}")
-	public BankAccount withdrawBalance(@RequestBody User accNo, @RequestBody Transfer amount) {
+	public Double withdrawBalance(@RequestBody Long accNo, @RequestBody double amount) {
 		return balanceService.withdrawBalance(accNo, amount);
 	}
 	
 	@GetMapping(path="/users/{accNo}")
-	public BankAccount getBalance(@RequestBody User accNo) {
+	public Double getBalance(@RequestBody Long accNo) {
 		return balanceService.getBalance(accNo);
 	}
 	

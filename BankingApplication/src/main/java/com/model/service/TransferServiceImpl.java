@@ -12,7 +12,9 @@ import com.beans.TransferList;
 import com.beans.User;
 import com.exceptions.AccountNotFoundException;
 import com.exceptions.LowBalanceException;
+import com.model.persistence.BankAccountDao;
 import com.model.persistence.TransferDao;
+import com.model.persistence.UserDao;
 
 
 @Service
@@ -23,7 +25,10 @@ public class TransferServiceImpl implements TransferService{
 	private UserDao userDao;
 	@Autowired
 	private BankAccountDao bankAccountDao;
-	private 
+	
+	@Autowired
+	BalanceService balanceService;
+	
 	@Override
 	public Transfer performTransfer(long fromAccountNo, long toAccountNo, double Amount) {
 		boolean exist= userDao.findById(toAccountNo).isPresent();
@@ -34,14 +39,14 @@ public class TransferServiceImpl implements TransferService{
 			
 		else {
 		
-			double balance=bankAccountDao.getbalance(fromAccountNo);
+			double balance=balanceService.getBalance(fromAccountNo);
 //			double balance= restTemplate.getForObject(null, Double.class);
 			if(balance<Amount) {
 				throw new LowBalanceException("Insufficient balance please add Rs."+(Amount-balance)+" amount in your account to proceed");
 			}
 			else {
-				bankAccountDao.withdrawBalance(fromAccountNo,Amount);
-				bankAccountDao.depositBalance(toAccountNo,Amount);
+				balanceService.withdrawBalance(fromAccountNo,Amount);
+				balanceService.depositBalance(toAccountNo,Amount);
 			
 		LocalDateTime now = LocalDateTime.now();
 		
@@ -57,11 +62,15 @@ public class TransferServiceImpl implements TransferService{
 		
 		return transfer;}}
 	}
+	
 	@Override
 	public TransferList getByAccount(long accountNo) {
-		TransferList list=transferDao.getTransferByAccountNo(accountNo);
+		TransferList list= new TransferList();
+		list.setTransfer(transferDao.getTransferByAccountNo(accountNo));
+		
 		return list;
 	}
+
 	
 	
 }
