@@ -16,10 +16,13 @@ public class TransferResource {
 	@Autowired
 	private TransferService transferService;
 	
+	//Working
 	@PutMapping(path = "/transfer/{fromAccountNo}/{toAccountNo}/{Amount}")
 	public Transfer transfer(@PathVariable long fromAccountNo,@PathVariable long toAccountNo,@PathVariable double Amount) {
 		return transferService.performTransfer(fromAccountNo, toAccountNo, Amount);
 	}
+	
+	//Working
 	@GetMapping(path = "/transfers/{accountNo}")
 	public TransferList getAllTransfersByAccountNo(@PathVariable long accountNo) {
 		return transferService.getByAccount(accountNo);

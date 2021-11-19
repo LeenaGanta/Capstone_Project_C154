@@ -1,18 +1,16 @@
 package com.model.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import com.beans.BankAccount;
 import com.beans.Transfer;
 import com.beans.TransferList;
 import com.beans.User;
 import com.exceptions.AccountNotFoundException;
 import com.exceptions.LowBalanceException;
-import com.model.persistence.BankAccountDao;
 import com.model.persistence.TransferDao;
 import com.model.persistence.UserDao;
 
@@ -23,8 +21,7 @@ public class TransferServiceImpl implements TransferService{
 	private TransferDao transferDao;
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private BankAccountDao bankAccountDao;
+
 	
 	@Autowired
 	BalanceService balanceService;
@@ -33,7 +30,7 @@ public class TransferServiceImpl implements TransferService{
 	public Transfer performTransfer(long fromAccountNo, long toAccountNo, double Amount) {
 		boolean exist= userDao.findById(toAccountNo).isPresent();
 //		boolean exist= restTemplate.getForObject(null, Boolean.class);
-		if(exist) {
+		if(!exist) {
 			throw new AccountNotFoundException("Wrong Account No. "+toAccountNo);
 		}
 			
@@ -66,7 +63,8 @@ public class TransferServiceImpl implements TransferService{
 	@Override
 	public TransferList getByAccount(long accountNo) {
 		TransferList list= new TransferList();
-		list.setTransfer(transferDao.getTransferByAccountNo(accountNo));
+		Optional<User> user=userDao.findById(accountNo);
+		list.setTransfer(transferDao.getTransferByAccountNo(user.get()));
 		
 		return list;
 	}

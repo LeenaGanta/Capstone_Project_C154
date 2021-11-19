@@ -1,13 +1,14 @@
 package com.beans;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -26,9 +27,9 @@ public class Transfer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long transferId;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private User fromAccNo;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private User toAccNo;
 	private double amount;
 	private LocalDateTime date;

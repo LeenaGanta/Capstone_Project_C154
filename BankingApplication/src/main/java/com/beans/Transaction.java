@@ -3,6 +3,7 @@ package com.beans;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long txnId;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private User accNo;
 	private String typeOfTransaction;
 	private double amount;

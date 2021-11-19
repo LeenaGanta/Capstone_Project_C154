@@ -1,5 +1,6 @@
 package com.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +21,17 @@ import lombok.ToString;
 @Setter
 public class BankAccount {
 	
+	public BankAccount(User accNo) {
+		super();
+		this.accNo = accNo;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int balanceId;
 	private double balance;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private User accNo;
 	
 

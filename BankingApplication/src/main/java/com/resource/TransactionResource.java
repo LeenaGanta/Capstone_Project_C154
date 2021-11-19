@@ -1,10 +1,11 @@
 package com.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,12 +20,16 @@ public class TransactionResource {
 	@Autowired
 	TransactionService transactionService;
 	
-	@PostMapping(path="/",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-	Transaction performTransactionResource(Transaction transaction)
+	//Working
+	@PostMapping(path="/")
+	Transaction performTransactionResource(@RequestBody  Transaction transaction)
 	{
 		System.out.println(transaction);
+		transactionService.preformTransaction(transaction.getAccNo().getAccNo(), transaction.getAmount(), transaction.getTypeOfTransaction());
 		return transaction;
 	}
+	
+	//Working
 	@GetMapping(path="/{accNo}")
 	TransactionList getTranactionsContoller(@PathVariable("accNo")  long accNo)
 	{

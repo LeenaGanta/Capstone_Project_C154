@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
 
 
 import com.beans.Transfer;
-import com.beans.TransferList;
+
+import com.beans.User;
 
 @Repository
 public interface TransferDao extends JpaRepository<Transfer, Long> {
 
 	@Query("from Transfer where fromAccNo=:accno")
-	List<Transfer> getTransferByAccountNo(@Param("accno") long accNo);
+	List<Transfer> getTransferByAccountNo(@Param("accno") User user);
 }

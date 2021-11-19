@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.beans.Transaction;
 import com.beans.TransactionList;
@@ -15,6 +16,7 @@ import com.model.persistence.BankAccountDao;
 import com.model.persistence.TransactionDao;
 import com.model.persistence.UserDao;
 
+@Service("transactionService")
 public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
@@ -32,7 +34,6 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public Transaction preformTransaction(long accNo, double amount, String type) throws AccountNotFoundException,LowBalanceException
 	{
-		// TODO Auto-generated method stub
 		Optional<User> temp = userDao.findById(accNo);
 		if(temp.isEmpty())
 		{
@@ -61,15 +62,19 @@ public class TransactionServiceImpl implements TransactionService {
 
 		}
 		transactionDao.save(transaction);
+		System.out.println(transaction);
 		return transaction;
 	}
 	
-	public TransactionList getAllTransactionsByAccNo(long accNO)
+	public TransactionList getAllTransactionsByAccNo(long accNo)
 	{
-		List<Transaction> list=transactionDao.getTransactionsById(accNO);
+		List<Transaction> list=transactionDao.getTransactionsById(userDao.findById(accNo).get());
 		TransactionList t=new TransactionList(list);
 		return t;
 		
 	}
 
 }
+
+
+

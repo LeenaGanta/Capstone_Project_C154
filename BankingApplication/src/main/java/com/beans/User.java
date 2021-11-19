@@ -22,7 +22,7 @@ import lombok.ToString;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long accNo;
 	private String name;
 	private String mailId;
