@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<<html>
+<html xmlns:th="https://thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -8,10 +8,10 @@
 <h3>User Login Page</h3>
 <form action="./userloginCheck" method="post">
 Account No:<input type="number" name="accNo" value="accNo"><br>
-Password:<input type="password" Name="password" value="password"><br>
+Password:<input type="password" name="password"><br>
 <input type="submit" value="Login">
 </form>
 <br><br><br>
-<h4>${message}</h4>
+<h4 th:text="${message}"></h4>
 </body>
 </html>

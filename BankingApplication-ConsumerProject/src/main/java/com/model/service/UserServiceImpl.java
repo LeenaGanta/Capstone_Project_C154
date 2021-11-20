@@ -1,11 +1,13 @@
 package com.model.service;
 
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.beans.User;
+
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -20,12 +22,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean validateUser(long accNo, String password) {
+	public User validateUser(long accNo, String password) {
+		try {
 		ResponseEntity<User> user=RestTemplate.getForEntity("http://localhost:8080/users/"+accNo+"/"+password,User.class);
-		if(user.getBody()!=null)
-			return true;
-		else
-			return false;
+		return user.getBody();
+		}
+		catch(HttpClientErrorException exc)
+		{
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -36,8 +42,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getAllDetails(long accNo) {
-		// TODO Auto-generated method stub
-		return null;
+		ResponseEntity<User> user=RestTemplate.getForEntity("http://localhost:8080/users/"+accNo, User.class);
+		return user.getBody();
 	}
 
 }

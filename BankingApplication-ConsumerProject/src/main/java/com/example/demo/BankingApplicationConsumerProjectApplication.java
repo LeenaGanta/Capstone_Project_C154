@@ -16,4 +16,5 @@ public class BankingApplicationConsumerProjectApplication {
 	public RestTemplate getTemplate() {
 		return new RestTemplate();
 	}
+	
 }
