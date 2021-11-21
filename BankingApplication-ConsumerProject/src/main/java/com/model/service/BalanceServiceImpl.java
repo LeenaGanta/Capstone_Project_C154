@@ -21,7 +21,7 @@ public class BalanceServiceImpl implements BalanceService {
 	@Override
 	public boolean depositBalance(Long accNo, double amount) {
 		try {
-		RestTemplate.put("http://localhost:8080/users/"+ accNo+"/"+amount,Double.class);
+//		RestTemplate.put("http://localhost:8080/users/"+ accNo+"/"+amount,Double.class);
 		Transaction transaction=new Transaction();
 		transaction.setAccNo(userService.getAllDetails(accNo));
 		transaction.setAmount(amount);
@@ -39,7 +39,7 @@ public class BalanceServiceImpl implements BalanceService {
 	@Override
 	public boolean withdrawBalance(Long accNo, double amount) {
 		try {
-			RestTemplate.put("http://localhost:8080/users/withdraw/"+ accNo+"/"+amount,Double.class);
+//			RestTemplate.put("http://localhost:8080/users/withdraw/"+ accNo+"/"+amount,Double.class);
 			Transaction transaction=new Transaction();
 			transaction.setAccNo(userService.getAllDetails(accNo));
 			transaction.setAmount(amount);

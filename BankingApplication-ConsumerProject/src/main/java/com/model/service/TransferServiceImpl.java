@@ -30,7 +30,8 @@ public class TransferServiceImpl implements TransferService {
 	@Override
 	public TransferList getByAccount(long accountNo) {
 		// TODO Auto-generated method stub
-		return null;
+		TransferList transferList=RestTemplate.getForObject("http://localhost:8080/transfers/"+accountNo, TransferList.class);
+		return transferList;
 	}
 
 }
