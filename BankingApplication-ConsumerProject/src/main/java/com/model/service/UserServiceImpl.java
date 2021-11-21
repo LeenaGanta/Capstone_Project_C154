@@ -18,7 +18,10 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User registerUser(User user) {
-		return null;
+		user.setAccNo(20);
+		User x=RestTemplate.postForObject("http://localhost:8080/users/post", user, User.class);
+		System.out.println(x);
+		return x;
 	}
 
 	@Override
@@ -37,7 +40,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User updateUser(User user) {
 		// TODO Auto-generated method stub
-		return null;
+		RestTemplate.put("http://localhost:8080/users/user/put", user,User.class);
+		return user;
 	}
 
 	@Override
