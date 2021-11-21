@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Login Page</title>
+</head>
+<body>
+<h3>Employee Login</h3>
+<form action="./employeeLogin" method="post">
+E-Mail : <input type="text" name="email"><br>
+Password : <input type="password" name="password">
+<input type="submit" value="Login">
+</form>
+<br><br><br>
+<h4 th:text="${message}"></h4>
+</body>
+</html>
