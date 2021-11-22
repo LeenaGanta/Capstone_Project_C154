@@ -48,6 +48,12 @@ public class EmployeeController {
 			return new ModelAndView("employeeLogin","message","Please enter valid details");
 		}
 	}
+	@RequestMapping("/employeeDashboard")
+	public ModelAndView employeeDashboardPage()
+	{
+		return new ModelAndView("employeeDashboard");
+	}
+	
 	@RequestMapping("/employeeUserPage")
 	public ModelAndView employeeUserPage()
 	{
@@ -93,7 +99,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("/empdeposit")
-	public ModelAndView depositPage(@RequestParam(value="amount") Double amount) {
+	public ModelAndView depositPages(@RequestParam(value="amount") Double amount) {
 		ModelAndView mv=new ModelAndView();
 		
 		if(balanceService.depositBalance(user.getAccNo(), amount))
@@ -102,12 +108,12 @@ public class EmployeeController {
 			mv.addObject("balancemsg","Your balance is ");
 			mv.addObject("balance",balance);
 			mv.addObject("message", "Amount Deposited");
-			mv.setViewName("deposit");
+			mv.setViewName("empdeposit");
 			return mv;}
 		else
 		{
 			mv.addObject("message", "Amount exceeded your balance");
-			mv.setViewName("deposit");
+			mv.setViewName("empdeposit");
 			return mv;}
 	}
 	
@@ -118,7 +124,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("/empwithdraw")
-	public ModelAndView withdrawPage(@RequestParam(value="amount") Double amount) {
+	public ModelAndView withdrawPages(@RequestParam(value="amount") Double amount) {
 		ModelAndView mv=new ModelAndView();
 		if(balanceService.withdrawBalance(user.getAccNo(), amount))
 		{
@@ -126,13 +132,13 @@ public class EmployeeController {
 			mv.addObject("balancemsg","Your balance is ");
 			mv.addObject("balance",balance);
 			mv.addObject("message", "Amount Withdrawn");
-			mv.setViewName("withdraw");
+			mv.setViewName("empwithdraw");
 			return mv;
 		}
 		else
 		{
 			mv.addObject("message", "Amount exceeded your balance");
-			mv.setViewName("withdraw");
+			mv.setViewName("empwithdraw");
 			return mv;
 
 		}
@@ -141,11 +147,11 @@ public class EmployeeController {
 	@RequestMapping("/emptransferPage")
 	public ModelAndView transferPage()
 	{
-		return new ModelAndView("transfer");
+		return new ModelAndView("emptransfer");
 	}
 	
 	@RequestMapping("/emptransfer")
-	public ModelAndView transferPage(@RequestParam(value="toAccNo")Long toAccNo,@RequestParam(value="amount")Double amount)
+	public ModelAndView transferPages(@RequestParam(value="toAccNo")Long toAccNo,@RequestParam(value="amount")Double amount)
 	{
 		ModelAndView mv=new ModelAndView();
 		if(transferService.performTransfer(user.getAccNo(), toAccNo, amount))
@@ -154,13 +160,13 @@ public class EmployeeController {
 			mv.addObject("balancemsg","Your balance is ");
 			mv.addObject("balance",balance);
 			mv.addObject("message", "Money Transfered");
-			mv.setViewName("transfer");
+			mv.setViewName("emptransfer");
 			return mv;
 		}
 		else
 		{
 			mv.addObject("message", "Insufficient Balance");
-			mv.setViewName("transfer");
+			mv.setViewName("emptransfer");
 			return mv;
 		}
 	}
