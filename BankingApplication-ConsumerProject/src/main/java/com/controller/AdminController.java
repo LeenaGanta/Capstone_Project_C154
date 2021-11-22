@@ -28,11 +28,6 @@ public class AdminController {
 	
 	Admin admin=null;
 	
-	@RequestMapping("/")
-	public ModelAndView firstPage() {
-		return new ModelAndView("welcome");
-	}
-	
 	@RequestMapping("/adminLoginPage")
 	public ModelAndView userPage()
 	{
@@ -41,17 +36,17 @@ public class AdminController {
 	
 	
 	@RequestMapping("/adminloginCheck")
-	public ModelAndView adminloginPage(@RequestParam(value="email id") String mailId,@RequestParam(value="password") String password) {
+	public ModelAndView adminloginPage(@RequestParam(value="mailId") String mailId,@RequestParam(value="password") String password) {
 		System.out.println(mailId+","+password);
 		if(adminService.validateAdmin(mailId, password))
-		{	return new ModelAndView("dashboard");}
+		{	return new ModelAndView("adminDashboard");}
 		else
-		{	return new ModelAndView("adminLoginLogin","message", "Please enter correct credentials");}
+		{	return new ModelAndView("adminLogin","message", "Please enter correct credentials");}
 	}
 	
-	@RequestMapping("/dashboard")
+	@RequestMapping("/adminDashboard")
 	public ModelAndView dashboard() {
-		return new ModelAndView("dashboard");
+		return new ModelAndView("adminDashboard");
 	}
 	
 	@RequestMapping("/getAllEmp")
