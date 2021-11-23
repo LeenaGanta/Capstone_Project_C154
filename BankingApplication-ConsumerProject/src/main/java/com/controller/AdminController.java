@@ -45,7 +45,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminDashboard")
-	public ModelAndView dashboard() {
+	public ModelAndView adminDashboardController() {
 		return new ModelAndView("adminDashboard");
 	}
 	
@@ -58,7 +58,7 @@ public class AdminController {
 	@RequestMapping("/getAllUsers")
 	public ModelAndView getAllUsersController() {
 		UserList users=adminService.getAllUsers();
-		return new ModelAndView("showAllEmployees", "employees", users);
+		return new ModelAndView("showAllUsers", "users", users);
 	}
 
 }
