@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
-<body>
-<h3 style="color:blue;">Welcome , ${admin.name} !!</h3>
-<a href="./showAllEmployeesPage">List all Employees</a><br><br>
-<a href="./showAllUsersPage">List all Users</a><br><br>
+<body >
+<header th:fragment="adminHeader">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    	<br>
+    	<br>
+    	<br>
+        <div class="container">
+      <br><br><br>
+      <a href="./"  style="margin: 0 auto; text-align: center; font-size:25px; background:activeborder; font-family:serif;">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="nav justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="./getAllEmp">List all Employees</a>
+           <a class="nav-item nav-link" href="./getAllUsers">List all Users</a>
+          <a class="nav-item nav-link" href="./logout">Logout</a>
+
+        </div>
+      </div>
+      </div>
+    </nav>
+</header>
+<section>
+<div class="login">
+	<div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row">
+                <div class="col-sm-10 offset-sm-1 text-center">
+                    <br>
+                    <br>
+                    <div class="info-form">
+		<div class="form-center">
+<div class="form-center">
+<h3 style="color:blue;">Welcome!!</h3>
+</div></div></div></div></div></div></div></div>
+</section>
 </body>
 </html>

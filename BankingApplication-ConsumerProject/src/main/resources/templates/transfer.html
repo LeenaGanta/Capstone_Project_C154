@@ -34,29 +34,49 @@
       </div>
     </nav>
 </header>
+
 <section>
-<div class="login">
-	<div id="cover-caption">
-        <div id="container" class="container">
-            <div class="row">
-                <div class="col-sm-10 offset-sm-1 text-center">
-                    <br>
-                    <br>
-                    <div class="info-form">
-		<div class="form-center">
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+          <div class="card-img-left d-none d-md-flex">
+            <!-- Background image for card set in CSS! -->
+          </div>
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Transfer Money</h5>
+      <form action="./transfer" method="post">
+
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="floatingInputUsername" placeholder="myusername" required autofocus name="toAccNo">
+                <label for="floatingInputUsername">Enter Account No to whom u want to transfer</label>
+              </div>
+              
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="floatingInputUsername" placeholder="myusername" required autofocus name="amount" >
+                <label for="floatingInputUsername">Enter Amount</label>
+              </div>
+
+              <br><br>
+
+
+              <div class="d-grid mb-2">
+                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Transfer</button>
+              </div>
 <br><br>
-<h3>Please enter the account number to whom you want to send money</h3>
-<form action="./transfer" method="post">
-Account Number:&nbsp;&nbsp;<input type="number" name="toAccNo">&nbsp;&nbsp;
-Enter Amount:&nbsp;&nbsp;<input type="number" name="amount">&nbsp;&nbsp;
-<input type="submit" value="transfer">
+     
+           <h4 align="center" th:text="${message}"></h4>
+<h4 align="center" th:text="${balancemsg}"></h4>
+<h4 align="center" th:text="${balance}"></h4>
 </form>
-<br>
-<h4 th:text="${message}"></h4>
-<h4 th:text="${balancemsg}"></h4>
-<h4 th:text="${balance}"></h4>
-<br><br><br>
-</div></div></div></div></div></div></div>
+
+
+</div></div></div></div>
+	</div>
+	
 </section>
+
+
 </body>
 </html>

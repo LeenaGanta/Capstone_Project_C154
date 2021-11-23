@@ -44,22 +44,25 @@
                     <br>
                     <div class="info-form">
 		<div class="form-center">
-
-
-	<table border="1">
-		<tr>
-			<th>From Acc No</th>
-			<th>To Acc No</th>
-			<th>Amount</th>
-			<th>Date And Time</th>
-		</tr>
-		<tr th:each="transfer: ${ transferList}">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">From Account No</th>
+      <th scope="col">To Account No</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Date And Time</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+  <tr th:each="transfer: ${ transferList}">
 			<td th:text="${transfer.fromAccNo.accNo}"></td>
 			<td th:text="${transfer.toAccNo.accNo}"></td>
 			<td th:text="${transfer.amount}"></td>
 			<td th:text="${transfer.date}"></td>
 		</tr>
-	</table>
+  </tbody>
+</table>
 </div></div></div></div></div></div></div>
 </section>
 </body>
