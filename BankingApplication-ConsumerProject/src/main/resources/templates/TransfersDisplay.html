@@ -2,9 +2,49 @@
 <html xmlns:th="https://thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link th:href="@{/style.css}" rel="stylesheet" />
+<title>User Transfers</title>
 </head>
 <body>
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    	<br>
+    	<br>
+    	<br>
+        <div class="container">
+      <br><br><br>
+      <a href="./"  style="margin: 0 auto; text-align: center; font-size:25px; background:activeborder; font-family:serif;">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="nav justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="./depositPage">Deposit Balance</a>
+          <a class="nav-item nav-link" href="./withdrawPage">Withdraw Balance</a>
+          <a class="nav-item nav-link" href="./transferPage">Transfer Amount</a>
+          <a class="nav-item nav-link" href="./displayTransfers">View Transfers</a>
+          <a class="nav-item nav-link" href="./displayTransactions">View Transactions</a>
+          <a class="nav-item nav-link" href="./updateDetails">Change details</a>
+             <a class="nav-item nav-link" href="./logout">Logout</a>
+        </div>
+      </div>
+      </div>
+    </nav>
+</header>
+<section>
+<div class="login">
+	<div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row">
+                <div class="col-sm-10 offset-sm-1 text-center">
+                    <br>
+                    <br>
+                    <div class="info-form">
+		<div class="form-center">
+
 
 	<table border="1">
 		<tr>
@@ -20,15 +60,7 @@
 			<td th:text="${transfer.date}"></td>
 		</tr>
 	</table>
-	<h2 th:text="${message}"></h2>
-
-<a href="./depositPage">Deposit Balance</a><br><br>
-<a href="./withdrawPage">Withdraw Balance</a><br><br>
-<a href="./transferPage">Transfer Amount</a><br><br>
-<a href="./displayTransfers">View Transfers</a><br><br>
-<a href="./displayTransactions">View Transactions</a><br><br>
-<a href="./updateDetails">Change details</a><br><br>
-<a href="./logout">Logout</a><br><br>
-
+</div></div></div></div></div></div></div>
+</section>
 </body>
 </html>

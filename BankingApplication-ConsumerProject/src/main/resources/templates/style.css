@@ -1,0 +1,46 @@
+@charset "ISO-8859-1";
+
+.navbar {
+	display: inline-block;
+}
+
+.navbar li {
+	display: inline-block;
+	font-size: 17px;
+}
+
+.navbar li a {
+	color: white;
+	text-decoration: none;
+	padding: 21px 19px;
+}
+
+.navbar li a:hover {
+	color: grey;
+	text-decoration: underline;
+}
+
+.mid {
+	display: flex;
+	justify-content: center;
+}
+
+body {
+	background-color: blue;
+	text-align: center;
+	color: white;
+	background-image: url("bgImage.jpg");
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+	justify-content: center;
+}
+
+select {
+	height: 3 em;
+	width: 10 em;
+	color: black;
+	border-radius: 10px
+}
