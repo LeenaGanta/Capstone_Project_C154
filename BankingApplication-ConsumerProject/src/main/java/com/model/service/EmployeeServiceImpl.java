@@ -3,6 +3,7 @@ package com.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.beans.Employee;
@@ -83,10 +84,5 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return bal.getBody();
 	}
 
-	@Override
-	public User createUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

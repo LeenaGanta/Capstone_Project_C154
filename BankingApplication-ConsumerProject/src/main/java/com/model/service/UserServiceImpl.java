@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User registerUser(User user) {
-		user.setAccNo(20);
 		User x=RestTemplate.postForObject("http://localhost:8080/users/post", user, User.class);
 		System.out.println(x);
 		return x;

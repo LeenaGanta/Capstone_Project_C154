@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<section>
+		<div class="login">
+			<div id="cover-caption">
+				<div id="container" class="container">
+					<div class="row">
+						<div class="col-sm-10 offset-sm-1 text-center">
+							<br> <br>
+							<div class="info-form">
+								<div class="form-center">
+									<table border="1">
+
+										<tr>
+											<th>From Acc No</th>
+											<th>Type Of Transaction</th>
+											<th>Amount</th>
+											<th>Date And Time</th>
+										</tr>
+
+
+										<tr th:each=" transaction : ${transactionList}">
+											<td th:text="${transaction.accNo.accNo}"></td>
+											<td th:text="${transaction.typeOfTransaction}"></td>
+											<td th:text="${transaction.amount}"></td>
+											<td th:text="${transaction.date}"></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

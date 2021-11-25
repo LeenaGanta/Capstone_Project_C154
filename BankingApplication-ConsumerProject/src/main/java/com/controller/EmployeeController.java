@@ -38,6 +38,8 @@ public class EmployeeController {
 	Employee employee = null;
 	User user = null;
 
+	
+	
 	@RequestMapping("/employeeLoginPage")
 	public ModelAndView employeePage() {
 		return new ModelAndView("employeeLogin");
@@ -65,6 +67,18 @@ public class EmployeeController {
 	public ModelAndView employeeUserPage() {
 		return new ModelAndView("employeeUserInput");
 	}
+	
+	@RequestMapping("/empCheckBalancePage")
+	public ModelAndView checkBalance()
+	{
+		ModelAndView mv=new ModelAndView();
+		Double balance=balanceService.getBalance(user.getAccNo());
+		mv.addObject("balancemsg","Your balance is ");
+		mv.addObject("balance",balance);
+		mv.setViewName("empBalancePage");
+		return mv;
+	}
+
 
 	@RequestMapping("/employeeUserInput")
 	public ModelAndView getEmployeeByAccount(@RequestParam long accNo) {
@@ -94,7 +108,7 @@ public class EmployeeController {
 	public ModelAndView logoutSystem(HttpServletRequest request) {
 		HttpSession httpSession = request.getSession();
 		httpSession.invalidate();
-		return new ModelAndView("Employeelogout", "message", "Thanks for using our system");
+		return new ModelAndView("welcome");
 	}
 
 	@RequestMapping("/empdepositPage")

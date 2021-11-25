@@ -1,17 +1,21 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.beans.TransactionList;
+import com.beans.TransferList;
 import com.beans.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import com.model.service.BalanceService;
+import com.model.service.TransactionService;
 import com.model.service.TransferService;
 import com.model.service.UserService;
 
@@ -25,6 +29,8 @@ public class LoginController {
 	private BalanceService balanceService;
 	@Autowired
 	private TransferService transferService;
+	@Autowired
+	private TransactionService transactionService;
 	User user=null;
 	
 	@RequestMapping("/")
@@ -56,6 +62,17 @@ public class LoginController {
 		return new ModelAndView("deposit");
 	}
 	
+	@RequestMapping("/checkBalancePage")
+	public ModelAndView checkBalance()
+	{
+		ModelAndView mv=new ModelAndView();
+		Double balance=balanceService.getBalance(user.getAccNo());
+		mv.addObject("balancemsg","Your balance is ");
+		mv.addObject("balance",balance);
+		mv.setViewName("balancePage");
+		return mv;
+	}
+
 	@RequestMapping("/deposit")
 	public ModelAndView depositPage(@RequestParam(value="amount") Double amount) {
 		ModelAndView mv=new ModelAndView();
@@ -153,11 +170,84 @@ public class LoginController {
 		}
 	}
 	
+
+	@RequestMapping("/newUser")
+	public ModelAndView showLoginPage() {
+		return new ModelAndView("UserRegistration", "user", new User());
+
+	}
+
+	@RequestMapping("/UserRegister")
+	public ModelAndView registerUserController(@ModelAttribute User user) {
+		System.out.println(user);
+		User user1 = userService.registerUser(user);
+		if (user1 != null)
+			return new ModelAndView("UserRegistration", "message", "Your account number is-> " + user1.getAccNo());
+
+		return new ModelAndView("UserRegistration", "message", "Sorry registration failed Try again");
+	}
+
+	@RequestMapping("/updateDetails")
+	public ModelAndView UpdateUserController() {
+		//User user1 = (User) session.getAttribute("user");
+		System.out.println(user);
+		return new ModelAndView("UserUpdation", "user", user);
+	}
+
+	@RequestMapping("/UserUpdateDb")
+	public ModelAndView UpdateUserControllerDB(@ModelAttribute User user) {
+//		User user2 = (User) session.getAttribute("user");
+		user.setAccNo(this.user.getAccNo());
+		System.out.println(user);
+		User user1 = userService.updateUser(user);
+		if(user1==null)
+		{
+			return new ModelAndView("UserUpdation", "message", "Password Didnt Match");
+		}
+		this.user=user1;
+		return new ModelAndView("UserUpdation", "message", "Details updated sucessfully");
+	}
+
+	@RequestMapping("/displayTransfers")
+	public ModelAndView displayingTransfers() {
+//		User user = (User) session.getAttribute("user");
+		TransferList transferList = transferService.getByAccount(user.getAccNo());
+		if (transferList.getTransfer().size() == 0)
+			return new ModelAndView("TransfersDisplay", "message", "No Transfers to Display");
+
+		return new ModelAndView("TransfersDisplay", "transferList", transferList.getTransfer());
+	}
+
+//	TransactionsDisplay
+	@RequestMapping("/displayTransactions")
+	public ModelAndView displayTransactions() {
+//		User user = (User) session.getAttribute("user");
+		TransactionList transactionList = transactionService.getAllTransactionsByAccNo(user.getAccNo());
+
+		if (transactionList.getTransactions().size() == 0)
+			return new ModelAndView("TransactionsDisplay", "message", "No transactions To display");
+		return new ModelAndView("TransactionsDisplay", "transactionList", transactionList.getTransactions());
+	}
+	
+	@RequestMapping("/userDetailsDisplay")
+	public ModelAndView displayDetails()
+	{
+//		User user1=(User)session.getAttribute("user");
+		double balance=balanceService.getBalance(this.user.getAccNo());
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("usersDetailsDisplay");
+		mv.addObject("user", user);
+		mv.addObject("balance",balance);
+		return mv;
+	}
+	
+	
 	@RequestMapping("/logout")
 	public ModelAndView logoutSystem(HttpServletRequest request)
 	{
 		  HttpSession httpSession = request.getSession();
           httpSession.invalidate();
+
 	   	  return new ModelAndView("welcome");
 	}
 	

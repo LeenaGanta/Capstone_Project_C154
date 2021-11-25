@@ -15,5 +15,5 @@ public interface EmployeeService {
 	UserList getAllUsers();
 	public User updateUserDetails(User user);
 	public double withdrawMoneyByAccountNo(long accNo,double amount);
-	public User createUser(User user);
+
 }

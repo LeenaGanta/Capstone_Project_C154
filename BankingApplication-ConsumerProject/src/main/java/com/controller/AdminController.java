@@ -2,6 +2,9 @@ package com.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,6 +76,14 @@ public class AdminController {
 	{
 		Employee employee1=adminService.addEmployee(employee);
 		return new ModelAndView("employeeRegistration","message","Employee registered sucessfully");
+	}
+	
+	@RequestMapping("/adminLogout")
+	public ModelAndView logoutSystem(HttpServletRequest request)
+	{
+		  HttpSession httpSession = request.getSession();
+          httpSession.invalidate();
+	   	  return new ModelAndView("welcome");
 	}
 
 }
