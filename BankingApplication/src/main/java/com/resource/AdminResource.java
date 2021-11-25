@@ -5,10 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.beans.Admin;
+import com.beans.Employee;
 import com.beans.EmployeeList;
+import com.beans.User;
 import com.beans.UserList;
 import com.exceptions.AccountNotFoundException;
 import com.model.service.AdminService;
@@ -46,5 +50,10 @@ public class AdminResource {
 		else
 			throw new AccountNotFoundException("Please Check for the correct credentials");
 	}
-
+	
+	@PostMapping(path="/admin/add/{employee}")
+	public Employee registerUser(@RequestBody Employee employee)
+	{
+		return adminService.addEmployee(employee);
+	}
 }

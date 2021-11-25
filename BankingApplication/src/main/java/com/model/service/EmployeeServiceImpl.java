@@ -1,5 +1,9 @@
 package com.model.service;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,29 @@ import com.model.persistence.EmployeeDao;
 import com.model.persistence.UserDao;
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
+	
+	public static byte[] getSHA(String input) throws NoSuchAlgorithmException
+    { 
+        MessageDigest md = MessageDigest.getInstance("SHA-256"); 
+  
+        return md.digest(input.getBytes(StandardCharsets.UTF_8)); 
+    }
+    
+    public static String toHexString(byte[] hash)
+    {
+        
+        BigInteger number = new BigInteger(1, hash); 
+  
+        
+        StringBuilder hexString = new StringBuilder(number.toString(16)); 
+  
+        while (hexString.length() < 32) 
+        { 
+            hexString.insert(0, '0'); 
+        } 
+  
+        return hexString.toString(); 
+    }
 
 	@Autowired
 	private EmployeeDao employeeDao;
@@ -36,7 +63,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 	
 	public User updateUserDetails(User user) {
-		return userService.updateUser(user);
+		int user1 =userDao.updateUser(user.getName(),user.getMailId(), user.getMobileNo(), user.getSsn(), user.getPassword(), user.getAccNo());
+		System.out.println("Employee update user "+user1+" "+user );
+		 return userDao.findById(user.getAccNo()).get();
 		
 	}
 	
@@ -61,7 +90,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return userService.registerUser(user);
 	}
 	
-	public Employee validateEmployee(String emailId, String password) {
+	public Employee validateEmployee(String emailId, String password)  {
+		try {
+			password=toHexString(getSHA(password));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 		return employeeDao.validate(emailId, password);
 	}
 
@@ -69,5 +103,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public UserList getAllUsers() {
 		return adminService.getAllUsers();
 	}
+	
 }
 
