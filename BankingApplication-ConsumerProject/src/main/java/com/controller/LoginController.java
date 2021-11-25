@@ -39,11 +39,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/userloginCheck")
-	public ModelAndView userloginPage(@RequestParam(value="accNo") Long accNo,@RequestParam(value="password") String password) {
+	public ModelAndView userloginPage(@RequestParam(value="accNo") Long accNo,@RequestParam(value="password") String password,HttpSession session) {
 		System.out.println(accNo+","+password);
 		if(userService.validateUser(accNo, password)!=null)
 		{
 			this.user=userService.validateUser(accNo, password);
+			session.setAttribute("user", this.user);
 			return new ModelAndView("dashboard");}
 		else
 		{	return new ModelAndView("userLogin","message", "Please enter correct credentials");}
@@ -58,7 +59,12 @@ public class LoginController {
 	@RequestMapping("/deposit")
 	public ModelAndView depositPage(@RequestParam(value="amount") Double amount) {
 		ModelAndView mv=new ModelAndView();
-		
+		if(amount<0)
+		{
+		mv.addObject("message", "Please enter a positive number");
+		mv.setViewName("deposit");
+		return mv;
+		}
 		if(balanceService.depositBalance(user.getAccNo(), amount))
 		{	
 			Double balance=balanceService.getBalance(user.getAccNo());
@@ -69,7 +75,7 @@ public class LoginController {
 			return mv;}
 		else
 		{
-			mv.addObject("message", "Amount exceeded your balance");
+			mv.addObject("message", "Unable to deposit please try later");
 			mv.setViewName("deposit");
 			return mv;}
 	}
@@ -83,6 +89,12 @@ public class LoginController {
 	@RequestMapping("/withdraw")
 	public ModelAndView withdrawPage(@RequestParam(value="amount") Double amount) {
 		ModelAndView mv=new ModelAndView();
+		if(amount<0)
+		{
+		mv.addObject("message", "Please enter a positive number");
+		mv.setViewName("withdraw");
+		return mv;
+		}
 		if(balanceService.withdrawBalance(user.getAccNo(), amount))
 		{
 			Double balance=balanceService.getBalance(user.getAccNo());
@@ -111,6 +123,19 @@ public class LoginController {
 	public ModelAndView transferPage(@RequestParam(value="toAccNo")Long toAccNo,@RequestParam(value="amount")Double amount)
 	{
 		ModelAndView mv=new ModelAndView();
+		User user1=userService.getAllDetails(toAccNo);
+		if(user1==null || user1.getAccNo()==this.user.getAccNo())
+		{
+			mv.addObject("message", "Invalid Account Number");
+			mv.setViewName("transfer");
+			return mv;
+		}
+		if(amount<0)
+		{
+			mv.addObject("message", "Enter a positive number");
+			mv.setViewName("transfer");
+			return mv;
+		}
 		if(transferService.performTransfer(user.getAccNo(), toAccNo, amount))
 		{
 			Double balance=balanceService.getBalance(user.getAccNo());
@@ -133,7 +158,7 @@ public class LoginController {
 	{
 		  HttpSession httpSession = request.getSession();
           httpSession.invalidate();
-	   	  return new ModelAndView("logout","message","Thanks for using our system");
+	   	  return new ModelAndView("welcome");
 	}
 	
 }

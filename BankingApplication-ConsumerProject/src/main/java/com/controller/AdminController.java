@@ -3,6 +3,7 @@ package com.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,13 +53,26 @@ public class AdminController {
 	@RequestMapping("/getAllEmp")
 	public ModelAndView getAllEmployeesController() {
 		EmployeeList employees=adminService.getAllEmployees();
-		return new ModelAndView("showAllEmployees", "employees", employees);
+		return new ModelAndView("showAllEmployees", "employees", employees.getEmployees());
 	}
 	
 	@RequestMapping("/getAllUsers")
 	public ModelAndView getAllUsersController() {
 		UserList users=adminService.getAllUsers();
-		return new ModelAndView("showAllUsers", "users", users);
+		return new ModelAndView("showAllUsers", "users", users.getUsers());
+	}
+	
+	@RequestMapping("/addEmployee")
+	public ModelAndView addEmployee()
+	{
+		return new ModelAndView("employeeRegistration","employee",new Employee());
+	}
+	
+	@RequestMapping("/employeeRegister")
+	public ModelAndView employeeAddDB(@ModelAttribute("employee") Employee employee)
+	{
+		Employee employee1=adminService.addEmployee(employee);
+		return new ModelAndView("employeeRegistration","message","Employee registered sucessfully");
 	}
 
 }

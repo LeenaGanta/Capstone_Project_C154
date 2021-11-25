@@ -23,9 +23,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public User getDetailsOfUserByAccountNo(long accno) {
-		ResponseEntity<User> user=restTemplate.getForEntity("http://localhost:8080/users/"+accno, User.class);
+		ResponseEntity<User> user;
+	
+		try {
+		user=restTemplate.getForEntity("http://localhost:8080/users/"+accno, User.class);
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 		return user.getBody();
 	}
+
 	
 
 	@Override
@@ -55,7 +64,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public User updateUserDetails(User user) {
 		
-		return null;
+//		ResponseEntity<User> user;
+		System.out.println("Employee user update "+ user);
+		
+		try {
+		restTemplate.put("http://localhost:8080/employees/update/put", user,User.class);
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+		return user;
 	}
 
 	@Override
