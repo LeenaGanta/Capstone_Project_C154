@@ -7,31 +7,50 @@
 <title>Employee Login Page</title>
 <link th:href="@{/style.css}" rel="stylesheet" />
 
+<style>
+.header1 {
+	background:
+		url(https://image.shutterstock.com/image-photo/businessman-sitting-front-paper-piggy-260nw-1533479471.jpg)
+		#444;
+	background-repeat: no-repeat;
+	background-size: 100% 120%;
+	padding-top: 80px;
+}
+
+body {
+
+	background-color:lavender;
+}
+
+</style>
+
 </head>
+<div class="header1"></div>
 <body>
 <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    	<br>
-    	<br>
-    	<br>
-        <div class="container">
-      <br><br><br>
-      <a href="./"  style="margin: 0 auto; text-align: center; font-size:25px; background:activeborder; font-family:serif;">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<!-- NAVBAR-->
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a href="#" class="navbar-brand">
+      <!-- Logo Image -->
+      <img src="https://bootstrapious.com/i/snippets/sn-nav-logo/logo.png" width="45" alt="" class="d-inline-block align-middle mr-2">
+      <!-- Logo Text -->
+      <span class="text-uppercase font-weight-bold">WileyM3</span>
+    </a>
 
-      <div class="nav justify-content-end" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-          <a class="nav-item nav-link" href="./userLoginPage">User Login</a>
-           <a class="nav-item nav-link" href="./employeeLoginPage">Employee Login</a>
-          <a class="nav-item nav-link" href="./adminLoginPage">Admin Login</a>
+    <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
 
-        </div>
-      </div>
-      </div>
-    </nav>
+    <div id="navbarSupportedContent" class="nav justify-content-end" >
+      <ul class="navbar-nav ml-auto">
+      <li class="nav-item active"><a href="./" class="nav-link" >Home</a></li>
+        <li class="nav-item"><a  class="nav-link" href="./userLoginPage">User Login</a></li>
+        <li class="nav-item"><a  class="nav-link" href="./employeeLoginPage">Employee Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="./adminLoginPage">Admin Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
     </header>
     
     <section>
