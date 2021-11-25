@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.beans.User;
 import com.exceptions.AccountNotFoundException;
+import com.model.service.BalanceService;
 import com.model.service.UserService;
 
 @RestController
@@ -19,6 +21,8 @@ public class UserResource {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BalanceService balanceService;
 	
 	//Working
 	@PostMapping(path="/users/{user}")
@@ -60,5 +64,6 @@ public class UserResource {
 			throw new AccountNotFoundException("No particulars Found");
 		
 	}
-
+	
+	
 }
